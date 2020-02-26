@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="2">
+<name>tf_example</name>
+<version>0.0.0</version>
+<description>The odom_pub package</description>
+<maintainer email="micho@todo.todo">micho</maintainer>
+<license>TODO</license>
+<buildtool_depend>catkin</buildtool_depend>
+<depend>geometry_msgs</depend>
+<depend>roscpp</depend>
+<depend>tf</depend>
+<depend>std_msgs</depend>
+<depend>dynamic_reconfigure</depend>
+<depend>message_generation</depend>
+
+</package>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<launch>
+
+	<node pkg="transform_example" type="transform_example2" name="transform_example2" output="screen"/>
+
+	<node pkg="transform_example" type="transform_example1" name="transform_example1" output="screen" />
+
+
+
+</launch>

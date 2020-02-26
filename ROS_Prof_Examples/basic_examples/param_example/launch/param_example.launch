@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<launch>
+
+<!--    <rosparam file="$(find param_example)/yaml/param_example.yaml" /> -->
+
+    <param name="p1" value="1" />
+    <param name="p2" value="2" />
+    
+    <node pkg="param_example" type="static_param_example" name="static_param_example3" output="screen">
+        <param name="p3" value="3" />
+    </node>
+
+
+</launch>

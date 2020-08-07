@@ -1,0 +1,35 @@
+global_frame: map
+robot_base_frame: roundbot/base_footprint
+transform_tolerance: 0.2 # Max time that has passed before you ignore tf data
+robot_radius: 0.5
+
+update_frequency: 5.0
+publish_frequency: 2.0
+rolling_window: false # Because global
+
+width: 100
+height: 100
+resolution: 0.05
+origin_x: -50
+origin_y: -50
+
+plugins:
+  - {name: obstacles, type: "costmap_2d::ObstacleLayer"} # Sensor info ouputed to pixel of obstacle location
+  - {name: inflation, type: "costmap_2d::InflationLayer"} 
+
+obstacles: # Associated with obsatcle
+  obstacle_range: 2.5 # stuff 3m away won't show up, populates obstacles
+  raytrace_range: 3.0 # clear everything before 3m withen straight line distance of scan
+
+  observation_sources: lidar_scan
+  lidar_scan:
+    topic: /roundbot/laser_front/scan
+    sensor_frame: roundbot/laser_front
+    data_type: LaserScan
+    marking: true
+    clearing: true
+
+inflation:
+  inflation_radius: 1.1
+  cost_scaling_factor: 0.2
+

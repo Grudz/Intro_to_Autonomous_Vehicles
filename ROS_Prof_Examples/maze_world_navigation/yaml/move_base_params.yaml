@@ -1,0 +1,8 @@
+base_global_planner: navfn/NavfnROS
+#base_local_planner: base_local_planner/TrajectoryPlannerROS (Could make your own)
+base_local_planner: roundbot_local_planner/RoundbotLocalPlanner # Could create one of these
+recovery_behaviors: []
+controller_frequency: 20.0
+recovery_behavior_enabled: true
+clearing_rotation_allowed: false
+planner_frequency: 2.0 # This could make it not get stuck 

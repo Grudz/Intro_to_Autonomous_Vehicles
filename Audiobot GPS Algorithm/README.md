@@ -1,4 +1,4 @@
-# gps_sim_project
+# GPS Localization Sim
 
 ## By: Ben Grudzien
 

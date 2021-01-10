@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>basics</name>
+  <version>0.0.0</version>
+  <description>
+    Hacker Rank Fundamentals
+  </description>
+  <maintainer email="bengrudz88@gmail.com">Ben Grudzien</maintainer>
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>roscpp</depend>
+
+  <export>
+  </export>
+</package>

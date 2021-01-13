@@ -1,0 +1,113 @@
+****YOLO ERROR DOCUMENT****
+
+
+--------------------------------
+Links to used install Guides:
+
+- Link to your install guide: https://docs.google.com/document/d/180Rh9DgYqvvDdCOXugWJmh620KzNJ5Y9fFtVE9cUUto/edit
+- Link to my install guide: https://github.com/oaklandsmartvehicles/DrivingAgent-2020-melodic
+
+
+--------------------------------
+Notes:
+
+- This is a fresh Ubuntu install
+- Code was freshly git cloned. Only modifications were locations of Darknet/Data folders
+- Clean download of Darknet and Data folders in Download folder
+- Current location of 'added' Darknet and Data folders is svc_ws and .ros folders
+- RQT graph seems correct, see pictures folder
+- Sammers works fine, also works on SVC computers
+
+
+--------------------------------
+Error Demos:
+
+*Error Demo 1*
+roslaunch self_drive_launch yolo.launch
+rosnode info /YOLONode  // Run instantly after launching
+rosnode info /YOLONode  // Run again to see failure 'after' subscription made
+
+*Error Demo 2*
+roscore
+rosrun yolo YOLONode  // Note correct output
+roslaunch self_drive_launch yolo.launch  // YOLONodes output and launch fails (Same error)
+
+
+--------------------------------
+Assumed Solutions:
+
+- Need to install later CUDA version due to my new GPU
+- Make changes to MakeFile to account for my GPU (MakeFile doesn't exsist?)
+
+
+--------------------------------
+Helpful Commands:
+
+nvidia-smi  // View GPU versions
+nvcc --version  // View CUDA versions
+locate darknet | grep /darknet$  // Locate any file on system
+rosdep install --from-paths src --ignore-src -r // Run in root of workspace to install deps
+sudo ubuntu-drivers autoinstall  // Autoinstall drivers
+sudo apt install libccd-dev  // Run if Gazebo won't work after autoremove
+
+- Go to software update app to view additional/possible Nvidia drivers
+- Set wayland=false in gdm3 config to remove crashes on start
+- Try running this to fix opencv gazebo
+cd /usr/local/lib
+ls -1 libgazebo*.9|sed 's/.9//g'|sudo xargs -I@ ln -fs @.9 @
+
+ls -l /var/crash
+sudo rm /var/crash/*
+
+
+--------------------------------
+Remove Nvidia Drives and CUDA completely:
+
+Link to reference video: https://www.youtube.com/watch?v=FhR8hL-xNDk&t=8s
+
+sudo apt-get remove -y nvidia-cuda-toolkit
+sudo apt-get --purge -y remove 'cuda*'
+sudo apt-get --purge -y remove 'nvidia*'
+sudo reboot
+
+// Wait for system restart.
+sudo apt-get remove -y --autoremove nvidia-cuda-toolkit
+sudo apt-get remove -y --autoremove nvidia-*
+
+
+--------------------------------
+Install Nvidia Drivers
+
+Link: https://download.lenovo.com/pccbbs/mobiles_pdf/tp_p1_gen2_ubuntu_18.04_lts_installation_v1.0.pdf
+
+sudo apt update
+sudo add-apt-repository ppa:graphics-drivers
+sudo apt update
+sudo apt install nvidia-driver-430 // Using 455 currently, 450 also works
+sudo reboot
+
+
+--------------------------------
+Install CUDA 11.1:
+
+Link: https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=1804&target_type=deblocal
+
+
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
+sudo mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600
+wget https://developer.download.nvidia.com/compute/cuda/11.1.1/local_installers/cuda-repo-ubuntu1804-11-1-local_11.1.1-455.32.00-1_amd64.deb
+sudo dpkg -i cuda-repo-ubuntu1804-11-1-local_11.1.1-455.32.00-1_amd64.deb
+sudo apt-key add /var/cuda-repo-ubuntu1804-11-1-local/7fa2af80.pub
+sudo apt-get update
+sudo apt-get -y install cuda
+
+--------------------------------
+
+Fixed avs lecture and gazebo dbw
+
+bash <(wget -O - "http://secs.oakland.edu/~mtradovn/ece_6460/software_update.bash")
+deps.bash
+
+
+
+

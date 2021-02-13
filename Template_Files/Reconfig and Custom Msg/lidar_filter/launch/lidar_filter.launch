@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- Launch saved Gazebo world -->
+  <param name="/use_sim_time" value="true" />
+  <node name="gazebo" pkg="gazebo_ros" type="gzserver" output="screen" args="-e ode $(find lidar_filter)/worlds/ready4filter.world" />
+  <arg name="auto_camera" default="true" />
+  <arg if=    "$(arg auto_camera)" name="gzclient_args" value="-g libigvc_self_drive_gazebo_plugins_cam.so" />
+  <arg unless="$(arg auto_camera)" name="gzclient_args" value="" />
+  <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" args="$(arg gzclient_args)" output="screen"/>
+
+  <!-- Spawn the golf cart -->
+  <include file="$(find igvc_self_drive_gazebo)/launch/spawn_gem.launch" >
+    <arg name="start_x" value="124.616" />
+    <arg name="start_y" value="-183.13" />
+    <arg name="start_yaw" value="0" />
+    <arg name="twist_mode" value="true" />
+    <arg name="pub_tf" value="false" />
+  </include> 
+
+  <!-- Launch this node -->
+  <node pkg="lidar_filter" type="lidar_filter" name="lidar_filter" output="screen" >
+    <remap from="points" to="cepton/points_raw" />  
+  </node>
+
+  <!-- Rviz configuration -->
+  <node pkg="rviz" type="rviz" name="svcConfig" respawn="true" args="-d $(find lidar_filter)/rviz/svcConfig.rviz" />
+
+</launch>

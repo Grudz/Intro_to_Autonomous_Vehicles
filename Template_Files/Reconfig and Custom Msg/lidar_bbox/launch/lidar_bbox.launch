@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- Launch the filtered node first to get the bbox dimensions -->
+  <include file="$(find lidar_filter)/launch/lidar_filter.launch" />
+
+  <!-- Launch this node -->
+  <node pkg="lidar_bbox" type="lidar_bbox" name="lidar_bbox" output="screen" />
+  
+</launch>
